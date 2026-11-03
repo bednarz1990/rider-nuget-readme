@@ -44,6 +44,8 @@ intellijPlatform {
 
 tasks.register<JavaExec>("integrationTest") {
     dependsOn(tasks.testClasses)
-    classpath = sourceSets.test.get().runtimeClasspath
+    // JavaExec does not receive the IDE runtime that the IntelliJ test task supplies.
+    // Reuse the target SDK libraries (Gson, Markdown and Kotlin) without bundling them.
+    classpath = sourceSets.test.get().runtimeClasspath + sourceSets.main.get().compileClasspath
     mainClass = "io.github.bednarz1990.nuget.IntegrationProbe"
 }
