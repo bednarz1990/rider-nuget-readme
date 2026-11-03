@@ -48,7 +48,12 @@ public final class NuGetClient {
         for (JsonElement entry : data) {
             JsonObject object = entry.getAsJsonObject();
             String id = string(object, "id");
-            if (!id.isEmpty()) result.add(new PackageInfo(id, string(object, "version"), string(object, "description")));
+            if (!id.isEmpty()) {
+                segment(id); // Validate before displaying server text in Swing components.
+                String version = string(object, "version");
+                segment(version);
+                result.add(new PackageInfo(id, version, string(object, "description")));
+            }
         }
         return List.copyOf(result);
     }
@@ -59,6 +64,7 @@ public final class NuGetClient {
         List<String> result = new ArrayList<>();
         for (JsonElement v : data) {
             String version = v.getAsString();
+            segment(version);
             if (prerelease || !version.contains("-")) result.add(version);
         }
         // Flat-container versions are returned in ascending version order by NuGet.org.

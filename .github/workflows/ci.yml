@@ -37,7 +37,8 @@ jobs:
           path: build/distributions/*.zip
           if-no-files-found: error
   live-nuget:
-    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:

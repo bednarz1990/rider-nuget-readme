@@ -19,8 +19,8 @@ These fixture tests do not establish live NuGet availability or IDE integration.
 
 `IntegrationProbe` searches Serilog, Newtonsoft.Json and Dapper, enumerates versions,
 and loads each latest stable README or verifies the no-declaration state. It uses
-real HTTPS and must not silently skip failures. CI runs it only on manual dispatch,
-so external outages do not make every pull request nondeterministic.
+real HTTPS and must not silently skip failures. CI runs it on main-branch pushes
+and manual dispatch, after the build; pull requests remain deterministic.
 
 ## Manual acceptance (release gate)
 

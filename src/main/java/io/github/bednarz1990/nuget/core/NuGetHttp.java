@@ -31,9 +31,21 @@ public final class NuGetHttp implements Transport {
         trusted(uri);
         HttpRequest request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(45))
                 .header("User-Agent", "NuGetReadmePreview/0.1.0").GET().build();
-        HttpResponse<byte[]> response = client().send(request, info -> new LimitedBody(max));
-        if (response.statusCode() != 200) throw new IOException("NuGet.org returned HTTP " + response.statusCode() + ". Try again later.");
-        return response.body();
+        CompletableFuture<HttpResponse<byte[]>> operation = client().sendAsync(request, info -> new LimitedBody(max));
+        try {
+            // Bound the complete body download, including servers that stall after headers.
+            HttpResponse<byte[]> response = operation.get(45, TimeUnit.SECONDS);
+            if (response.statusCode() != 200) throw new IOException("NuGet.org returned HTTP " + response.statusCode() + ". Try again later.");
+            return response.body();
+        } catch (TimeoutException e) {
+            operation.cancel(true); throw new IOException("NuGet.org request timed out. Please retry.", e);
+        } catch (InterruptedException e) {
+            operation.cancel(true); throw e;
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof IOException io) throw io;
+            throw new IOException("Unable to download NuGet data.", cause);
+        }
     }
 
     /** Bounds the body while downloading, without an unbounded ofByteArray allocation. */
