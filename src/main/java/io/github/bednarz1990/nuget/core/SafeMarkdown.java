@@ -15,6 +15,9 @@ public final class SafeMarkdown {
     private static final Set<String> TAGS = Set.of("p", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li",
             "pre", "code", "blockquote", "strong", "b", "em", "i", "s", "del", "table", "tr", "td", "th", "br", "hr", "a");
     public static String render(String markdown) {
+        // The JetBrains parser expects LF: CRLF closing fences can otherwise
+        // swallow all following prose into the code block. Keep source text intact.
+        markdown = markdown.replace("\r\n", "\n").replace('\r', '\n');
         GFMFlavourDescriptor flavour = new GFMFlavourDescriptor();
         String html = new HtmlGenerator(markdown, new MarkdownParser(flavour).buildMarkdownTreeFromString(markdown), flavour, false)
                 .generateHtml(new HtmlGenerator.DefaultTagRenderer((node, text, attributes) -> attributes, false));

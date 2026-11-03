@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — Markdown line endings
+
+- Normalize CRLF and CR line endings before parsing Markdown, fixing unclosed code blocks in Windows-authored READMEs such as Serilog.
+- Preserve original Markdown for viewing and copying.
+- Add regression checks for code fences, prose, links, headings, lists, tables and HTML filtering across line endings.
+
 ## 0.1.0 — Development preview
 
 - Add independent NuGet README tool window with package/version selection.
