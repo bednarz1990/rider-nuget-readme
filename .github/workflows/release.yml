@@ -1,0 +1,29 @@
+name: Prepare draft release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.1.0'
+      - name: Require tag and project version to match
+        shell: bash
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' build.gradle.kts)
+          test "$GITHUB_REF_NAME" = "v$version"
+      - run: gradle --no-daemon build buildPlugin verifyPluginStructure verifyPlugin
+      - name: Create a draft release (no Marketplace publication)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" build/distributions/*.zip --draft --generate-notes

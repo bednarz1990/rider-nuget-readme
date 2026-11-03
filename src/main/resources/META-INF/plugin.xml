@@ -1,0 +1,20 @@
+<idea-plugin>
+  <id>io.github.bednarz1990.nugetreadme</id>
+  <name>NuGet README Preview</name>
+  <version>0.1.0</version>
+  <vendor url="https://github.com/bednarz1990">Łukasz Bednarczyk</vendor>
+  <idea-version since-build="262" until-build="262.*"/>
+  <depends>com.intellij.modules.rider</depends>
+  <depends>org.intellij.plugins.markdown</depends>
+  <description><![CDATA[
+    <p>Read NuGet.org package documentation before installing a package.</p>
+    <p>Open View | Tool Windows | NuGet README, search for a package and choose a version.
+    Preview Markdown, copy examples, and open documentation links in your browser.</p>
+    <p>This independent tool window does not modify your projects or install packages.
+    Supports public NuGet.org only. Remote images and embedded HTML are restricted for safety.</p>
+  ]]></description>
+  <change-notes><![CDATA[Initial preview: package search, version selection, safe README rendering and bounded memory caching.]]></change-notes>
+  <extensions defaultExtensionNs="com.intellij">
+    <toolWindow id="NuGet README" anchor="right" factoryClass="io.github.bednarz1990.nuget.ui.ReadmeToolWindowFactory" icon="/icons/nuget.svg"/>
+  </extensions>
+</idea-plugin>
