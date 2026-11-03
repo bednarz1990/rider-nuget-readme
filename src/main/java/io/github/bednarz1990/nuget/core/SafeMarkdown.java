@@ -43,6 +43,11 @@ public final class SafeMarkdown {
                     if (dangerous(tag)) { hidden++; return; }
                     if (hidden != 0 || !TAGS.contains(tag.toString())) return;
                     result.append('<').append(tag);
+                    Object language = attrs.getAttribute(HTML.Attribute.CLASS);
+                    if (tag == HTML.Tag.CODE && language != null
+                            && Set.of("language-csharp", "language-cs", "language-c#").contains(language.toString())) {
+                        result.append(" class=\"language-csharp\"");
+                    }
                     Object href = attrs.getAttribute(HTML.Attribute.HREF);
                     if (tag == HTML.Tag.A && href != null && safeLink(href.toString())) result.append(" href=\"").append(escape(href.toString())).append('"');
                     result.append('>');

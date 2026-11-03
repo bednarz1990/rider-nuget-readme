@@ -72,7 +72,7 @@ wrapper files after validating their checksums. CI installs the pinned Gradle ve
 - Package download limit 40 MiB; README limit 512 KiB. Large SDK packages may be refused.
 - Missing `.nuspec` README declarations are shown as unavailable. Filenames are not guessed.
 - Remote images, relative links, scripts, embedded objects, custom styles and unsafe URI schemes are disabled.
-- Swing HTML rendering is intentionally simpler than a web browser: no syntax highlighting, task-box interaction or per-code-block copy button.
+- Swing HTML rendering is intentionally simpler than a web browser: basic C# syntax highlighting only; no task-box interaction or per-code-block copy button.
 - Flat-container versions can include unlisted versions; package search excludes them.
 - Standard JDK proxy behavior is used; Rider-specific proxy/authenticated feed integration is not implemented.
 - Remote-development/split-mode behavior is not verified.

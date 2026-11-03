@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2 — Code preview styling
+
+- Add code block backgrounds, borders and padding for light and dark themes.
+- Add basic C# highlighting for keywords, strings, numbers and comments in csharp/cs/c# fences.
+- Keep unknown languages as plain code and preserve original Markdown.
+- Verify rendered Swing text and HTML escaping with regression checks.
+
 ## 0.1.1 — Markdown line endings
 
 - Normalize CRLF and CR line endings before parsing Markdown, fixing unclosed code blocks in Windows-authored READMEs such as Serilog.

@@ -123,7 +123,7 @@ public final class ReadmePanel extends JPanel implements Disposable {
         title.setText(id + " · " + version); resetContent();
         run("Loading README…", this::loadReadme, () -> {
             Readme readme = client.readme(id, version);
-            return new Rendered(readme, readme.available() ? SafeMarkdown.render(readme.markdown()) : "<p>This version does not declare a package README.</p>");
+            return new Rendered(readme, readme.available() ? CodeStyling.highlight(SafeMarkdown.render(readme.markdown())) : "<p>This version does not declare a package README.</p>");
         }, rendered -> {
             safeHtml = rendered.html(); source.setText(rendered.readme().markdown()); source.setCaretPosition(0);
             updatePreview(); copy.setEnabled(rendered.readme().available()); open.setEnabled(true);
@@ -167,8 +167,15 @@ public final class ReadmePanel extends JPanel implements Disposable {
         if (bg == null) bg = Color.WHITE;
         String foreground = String.format("#%06x", fg.getRGB() & 0xffffff);
         String background = String.format("#%06x", bg.getRGB() & 0xffffff);
+        boolean dark = (bg.getRed() * 299 + bg.getGreen() * 587 + bg.getBlue() * 114) < 128000;
+        String codeBackground = dark ? "#252830" : "#f2f4f7";
+        String border = dark ? "#434852" : "#d5d9e0";
+        String syntax = ".syntax-keyword { color: " + (dark ? "#cf8e6d" : "#8a3391") + "; }"
+                + ".syntax-string { color: " + (dark ? "#a5c98b" : "#28713e") + "; }"
+                + ".syntax-number { color: " + (dark ? "#8bb8e8" : "#175da8") + "; }"
+                + ".syntax-comment { color: " + (dark ? "#a0a7b4" : "#606875") + "; font-style: italic; }";
         preview.setText("<html><head><style>body { font-family: sans-serif; color:" + foreground + "; background:" + background
-                + "; margin: 12px; } pre,code { font-family: monospace; } pre { padding: 8px; } td,th { padding: 5px; } a { color: #589df6; }</style></head><body>" + safeHtml + "</body></html>");
+                + "; margin: 12px; } pre,code { font-family: monospace; } pre { padding: 10px; margin-top: 10px; margin-bottom: 12px; background-color: " + codeBackground + "; border: 1px solid " + border + "; } td,th { padding: 5px; } a { color: #589df6; }" + syntax + "</style></head><body>" + safeHtml + "</body></html>");
         preview.setBackground(bg); preview.setForeground(fg); preview.setCaretPosition(0);
     }
 
