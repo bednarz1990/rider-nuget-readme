@@ -2,7 +2,7 @@
 
 ## Automated
 
-With JDK 21 and Gradle 9.1.0:
+With JDK 25 and Gradle 9.1.0:
 
 ```sh
 gradle test buildPlugin verifyPluginProjectConfiguration verifyPluginStructure

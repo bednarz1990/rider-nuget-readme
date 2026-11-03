@@ -1,6 +1,6 @@
 # Contributing
 
-Use JDK 21 and Gradle 9.1.0. Run `gradle build buildPlugin verifyPluginStructure verifyPlugin`
+Use JDK 25 and Gradle 9.1.0. Run `gradle build buildPlugin verifyPluginStructure verifyPlugin`
 before proposing a release. Add deterministic fixtures for changes to retrieval,
 security, caching or cancellation; live network checks are opt-in.
 

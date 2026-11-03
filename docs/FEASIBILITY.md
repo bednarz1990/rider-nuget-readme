@@ -57,7 +57,7 @@ comes from the platform/bundled Markdown dependency; it is not a JCEF browser
 and does not invoke the Markdown plugin's internal editor preview.
 
 The intended build uses IntelliJ Platform Gradle Plugin **2.19.0**, Gradle
-**9.1.0**, JDK **21**, Java 17 bytecode, and Rider **2026.2.3.1**. The
+**9.1.0**, JDK **25**, Java 25 bytecode, and Rider **2026.2.3.1**. The
 [Gradle plugin requirements](https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html)
 state Gradle 9.0.0 minimum. Java source is a documented deviation from the preferred
 Kotlin stack: it enabled actual compilation/testing with the available JDK, while

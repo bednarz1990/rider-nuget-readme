@@ -45,7 +45,7 @@ if supplied separately, is for inspection/testing only and is not a verified rel
 
 ## Build from source
 
-Requirements: JDK 21, Gradle 9.1.0, network access to Gradle Plugin Portal,
+Requirements: JDK 25, Gradle 9.1.0, network access to Gradle Plugin Portal,
 Maven Central, JetBrains downloads and NuGet.org for optional integration tests.
 
 ```sh
